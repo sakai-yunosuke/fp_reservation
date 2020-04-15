@@ -8,4 +8,9 @@ RSpec.describe User, type: :model do
   it 'should be valid' do
     expect(@user).to be_valid
   end
+
+  it 'name should be present' do
+    @user.name = ''
+    expect(@user).to_not be_valid
+  end
 end
