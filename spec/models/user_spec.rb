@@ -75,4 +75,9 @@ RSpec.describe User, type: :model do
     @user.password = @user.password_confirmation = ' ' * 8
     expect(@user).to_not be_valid
   end
+
+  it 'password should have a minimum length' do
+    @user.password = @user.password_confirmation = 'a' * 7
+    expect(@user).to_not be_valid
+  end
 end
