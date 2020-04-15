@@ -18,4 +18,14 @@ RSpec.describe User, type: :model do
     @user.email = ''
     expect(@user).to_not be_valid
   end
+
+  it 'name should not be too long' do
+    @user.name = 'a' * 51
+    expect(@user).to_not be_valid
+  end
+
+  it 'email should not be too long' do
+    @user.name = 'a' * 244 + '@example.com'
+    expect(@user).to_not be_valid
+  end
 end
