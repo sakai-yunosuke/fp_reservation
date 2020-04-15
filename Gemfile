@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.4'
 
+gem 'bootstrap', '~> 4.3.1'
 gem 'dotenv-rails'
 gem 'jbuilder', '~> 2.7'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
