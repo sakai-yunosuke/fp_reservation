@@ -1,4 +1,8 @@
 - provide(:title, 'Home')
 
-h1 FP Reservation
-p Find me in app/views/static_pages/home.html.slim
+.center.jumbotron
+  h1 Welcome
+
+  h2 This is the home page of fp_reservation.
+
+  = link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary'
