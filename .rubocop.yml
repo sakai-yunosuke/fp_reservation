@@ -1,18 +1,4 @@
-AllCops:
-  Exclude:
-    - 'bin/**/*'
-    - 'client/**/*'
-    - 'config/**/*'
-    - 'coverage/**/*'
-    - 'db/**/*'
-    - 'doc/**/*'
-    - 'log/**/*'
-    - 'node_modules/**/*'
-    - 'public/**/*'
-    - 'script/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'
-    - 'yardoc/**/*'
+require: rubocop-rails
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -30,7 +16,4 @@ Style/StringLiterals:
   Enabled: false
 
 Layout/LineLength:
-  Enabled: false
-
-Metrics/MethodLength:
   Enabled: false
