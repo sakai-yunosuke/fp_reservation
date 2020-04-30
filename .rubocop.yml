@@ -1,5 +1,8 @@
 require: rubocop-rails
 
+Style/AsciiComments:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
