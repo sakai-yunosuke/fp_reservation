@@ -1,0 +1,16 @@
+nav.navbar.fixed-top.navbar-expand-lg.navbar-dark.bg-dark
+  .container
+    = link_to 'fp_reservation', root_path, id: 'logo'
+    button.navbar-toggler [
+      type='button'
+      data-toggle='colapse'
+      data-target='#navBar'
+      aria-controls='navBar'
+      aria-expanded='false'
+      aria-label='ナビゲーションの切替'
+    ]
+      span.navbar-toggler-icon
+
+    .collapse.navbar-collapse id='navBar'
+      .navbar-nav.ml-auto
+        = link_to 'Home', root_path, class: 'nav-link'
