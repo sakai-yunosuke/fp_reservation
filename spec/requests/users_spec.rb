@@ -7,38 +7,26 @@ RSpec.describe UsersController, type: :request do
   end
 
   describe 'POST /signup' do
-    context 'when signup information is valid' do
-      it 'should be successful request' do
-        post signup_path, params: { user: FactoryBot.attributes_for(:user) }
-        expect(response.status).to eq 302
+    context 'with valid singup information' do
+      before do
+        params[:user] = FactoryBot.attributes_for(:user)
       end
 
-      it 'should be success signup' do
-        expect do
-          post signup_path, params: { user: FactoryBot.attributes_for(:user) }
-        end.to change(User, :count).by(1)
-      end
-
-      it 'should redirect to user page' do
-        post signup_path, params: { user: FactoryBot.attributes_for(:user) }
+      it 'should be success and redirect to user page' do
+        expect{subject}.to change(User, :count).by(1)
+        is_expected.to eq 302
         expect(response).to redirect_to User.last
       end
     end
 
-    context 'when signup information is invalid' do
-      it 'should be successful request' do
-        post signup_path, params: { user: FactoryBot.attributes_for(:user, :invalid) }
-        expect(response.status).to eq 200
+    context 'with invalid signup information' do
+      before do
+        params[:user] = FactoryBot.attributes_for(:user, :invalid)
       end
 
       it 'should be fail signup' do
-        expect do
-          post signup_path, params: { user: FactoryBot.attributes_for(:user, :invalid) }
-        end.to_not change(User, :count)
-      end
-
-      it 'should show error message' do
-        post signup_path, params: { user: FactoryBot.attributes_for(:user, :invalid) }
+        expect{subject}.to_not change(User, :count)
+        is_expected.to eq 200
         expect(response.body).to include 'errors'
       end
     end
