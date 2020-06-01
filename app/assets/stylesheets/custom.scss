@@ -72,3 +72,35 @@ p {
     text-decoration: none;
   }
 }
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+input {
+  height: auto;
+}
+
+#error_explanation {
+  color: red;
+
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  input {
+    @extend .is-invalid;
+  }
+
+  .form-control {
+    color: red;
+  }
+}

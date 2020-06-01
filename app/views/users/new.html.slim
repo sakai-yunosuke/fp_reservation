@@ -1,2 +1,22 @@
-h1 Users#new
-p Find me in app/views/users/new.html.slim
+- provide(:title, 'Sign up')
+
+h1 Sign up
+
+.form-row
+  .col-md-6.offset-3
+    = form_with model: @user, url: signup_path, local: true do |f|
+      = render 'shared/error_messages', object: f.object
+
+      = f.label :name, 'ユーザー名'
+      = f.text_field :name, class: 'form-control'
+
+      = f.label :email, 'メールアドレス'
+      = f.email_field :email, class: 'form-control'
+
+      = f.label :password, 'パスワード'
+      = f.password_field :password, class: 'form-control'
+
+      = f.label :password_confirmation, 'パスワードの確認'
+      = f.password_field :password_confirmation, class: 'form-control'
+
+      = f.submit 'アカウントの作成', class: 'btn btn-primary'
