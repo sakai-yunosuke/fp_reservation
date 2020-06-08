@@ -7,16 +7,28 @@ RSpec.describe SessionsController, type: :request do
   end
 
   describe 'POST /login' do
+    let(:user) { FactoryBot.create(:user) }
+
     context 'with invalid login information' do
       before do
         params[:session] = { email: '', password: '' }
       end
 
-      it 'should fail singup and show error message' do
+      it 'should fail login and show error message' do
         is_expected.to eq 200
         expect(flash[:danger]).to eq 'Invalid email or password combination'
       end
     end
-  end
 
+    context 'with valid login information' do
+      before do
+        params[:session] = { email: user.email, password: user.password }
+      end
+
+      it 'should success login and redirect to user page' do
+        is_expected.to eq 302
+        expect(response).to redirect_to user
+      end
+    end
+  end
 end
