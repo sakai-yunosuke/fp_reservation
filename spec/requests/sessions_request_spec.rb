@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :request do
 
-  describe 'GET /login' do
+  describe 'GET /sessions/new' do
     it { is_expected.to eq(200) }
   end
 
-  describe 'POST /login' do
+  describe 'POST /sessions' do
     let(:user) { FactoryBot.create(:user) }
 
     context 'with invalid login information' do

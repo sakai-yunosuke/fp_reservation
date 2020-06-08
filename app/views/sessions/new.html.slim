@@ -4,7 +4,7 @@ h1 Log in
 
 .form-row
   .col-md-6.offset-3
-    = form_with scope: :session, url: login_path, local: true do |f|
+    = form_with scope: :session, url: sessions_path, local: true do |f|
 
       = f.label :email
       = f.email_field :email, class: 'form-control'
@@ -16,4 +16,4 @@ h1 Log in
 
     p
       | New User?
-      = link_to ' Sign up now!', signup_path
+      = link_to ' Sign up now!', new_user_path

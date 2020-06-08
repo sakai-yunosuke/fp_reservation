@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   get 'sessions/new'
   root 'static_pages#home'
-  get '/signup', to: 'users#new'
-  post '/signup', to: 'users#create'
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  delete '/logout', to: 'sessions#destroy'
-  resources :users, except: :new
-  resources :sessions, except: :new
+
+  resources :users, only: %i(new create show edit)
+  resources :sessions, only: %i(new create destroy)
 end
