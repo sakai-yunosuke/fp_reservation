@@ -1,0 +1,19 @@
+- provide(:title, 'Log in')
+
+h1 Log in
+
+.form-row
+  .col-md-6.offset-3
+    = form_with scope: :session, url: sessions_path, local: true do |f|
+
+      = f.label :email
+      = f.email_field :email, class: 'form-control'
+
+      = f.label :password
+      = f.password_field :password, class: 'form-control'
+
+      = f.submit 'Log in', class: 'btn btn-primary'
+
+    p
+      | New User?
+      = link_to ' Sign up now!', new_user_path

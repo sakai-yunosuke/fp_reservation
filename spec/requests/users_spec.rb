@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
 
-  describe 'GET /signup' do
+  describe 'GET /users/new' do
     it { is_expected.to eq(200) }
   end
 
-  describe 'POST /signup' do
+  describe 'POST /users' do
     context 'with valid singup information' do
       before do
         params[:user] = FactoryBot.attributes_for(:user)
