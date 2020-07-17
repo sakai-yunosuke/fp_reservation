@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Reservation, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'validations' do
+    context 'presence' do
+      it { should belong_to(:user) }
+      it { should belong_to(:schedule) }
+    end
+  end
 end
