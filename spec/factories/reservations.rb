@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :reservation do
-    user { nil }
-    schedule { nil }
+    user
+    schedule
   end
 end
