@@ -9,11 +9,13 @@ RSpec.describe Reservation, type: :model do
 
     context 'when double booking' do
       let(:user){ create(:user) }
-      let(:reservations){ create_list(:reservation, 2, user: user) }
+      let!(:reservation1){ create(:reservation, user: user) }
+      let(:reservation2){ build(:reservation, user: user) }
 
-      # ユーザーIDが同一のものか確かめるために2つ実行している
-      it { expect(reservations[0]).not_to be_valid }
-      it { expect(reservations[1]).not_to be_valid }
+      it { 
+        expect(reservation2).not_to be_valid
+        expect(reservation2.errors.full_messages).to eq ['Schedule : 同じ時間帯に他の予約が入っています']
+      }
     end
   end
 end
