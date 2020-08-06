@@ -30,11 +30,9 @@ CREATE TABLE `reservations` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_reservations_on_user_id_and_schedule_id` (`user_id`,`schedule_id`),
+  UNIQUE KEY `index_reservations_on_schedule_id` (`schedule_id`),
   KEY `index_reservations_on_user_id` (`user_id`),
-  KEY `index_reservations_on_schedule_id` (`schedule_id`),
-  CONSTRAINT `fk_rails_48a92fce51` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `fk_rails_c58adc1819` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`)
+  CONSTRAINT `fk_rails_48a92fce51` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schedules`;
@@ -50,7 +48,7 @@ CREATE TABLE `schedules` (
   UNIQUE KEY `index_schedules_on_user_id_and_start_time` (`user_id`,`start_time`),
   KEY `index_schedules_on_user_id` (`user_id`),
   CONSTRAINT `fk_rails_3c900465fa` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `schema_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
