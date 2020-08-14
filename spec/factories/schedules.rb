@@ -3,10 +3,10 @@ FactoryBot.define do
     user { FactoryBot.build(:user) }
 
     now = Time.current
-    start_time { now }
-
     monday_in_business_hour = now.beginning_of_week(:monday).since(1.week).change(hour: 12)
     saturday_in_business_hour = now.beginning_of_week(:saturday).since(1.week).change(hour: 12)
+
+    start_time { monday_in_business_hour }
 
     trait :in_the_past do
       start_time { now.change(year: 2000) }
