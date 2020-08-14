@@ -3,3 +3,10 @@
 h1
   = gravatar_for @user
   = @user.name
+
+ul
+  - @schedules.each do |schedule|
+    li 
+      = schedule.start_time
+
+= link_to 'スケジュール作成', new_schedule_path, class: 'btn btn-lg btn-primary'
