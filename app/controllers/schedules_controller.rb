@@ -1,6 +1,7 @@
 class SchedulesController < ApplicationController
   def new
     @schedule = Schedule.new
+    @schedules = Schedule.where(user: current_user)
   end
 
   def create
