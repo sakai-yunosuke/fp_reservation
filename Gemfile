@@ -14,6 +14,7 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'rubocop'
 gem 'rubocop-rails', require: false
 gem 'sass-rails', '>= 6'
+gem 'simple_calendar', '~> 2.0'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
