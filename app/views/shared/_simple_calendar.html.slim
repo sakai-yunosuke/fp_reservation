@@ -1,0 +1,16 @@
+= month_calendar events: @schedules+@reservations do |date, events|
+  = date
+
+  - events.each do |event|
+    .div
+      - if event.is_a? Schedule
+        .schedule
+          - if event.reservation.nil?
+            = event.start_time.strftime('%H:%M')
+          - else
+            = event.reservation.user.name
+            = event.start_time.strftime(' %H:%M')
+      - elsif event.is_a? Reservation
+        .reservation
+          = event.schedule.user.name
+          = event.start_time.strftime(' %H:%M')
