@@ -10,12 +10,12 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    @schedule = Schedule.new
+    @schedule = current_user.schedules.build
     @schedules = Schedule.where(user: current_user)
   end
 
   def create
-    @schedule = Schedule.new(schedule_params)
+    @schedule = current_user.schedules.build(schedule_params)
     if @schedule.save
       flash[:success] = 'スケジュールが登録されました'
       redirect_to current_user
