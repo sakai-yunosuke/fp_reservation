@@ -1,4 +1,12 @@
 class SchedulesController < ApplicationController
+  def index
+    if params[:start_time]
+      @schedules = Schedule.where('start_time LIKE ?', "#{params[:start_time]}%")
+    else
+      @schedules = Schedule.where('start_time > ?', Time.now).order(:start_time)
+    end
+  end
+
   def new
     @schedule = Schedule.new
     @schedules = Schedule.where(user: current_user)
