@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   resources :users, only: %i(new create show edit)
   resources :sessions, only: %i(new create destroy)
+  resources :schedules, only: %i(new create destroy)
 end
