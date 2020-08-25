@@ -1,0 +1,19 @@
+- provide(:title, '受付枠検索')
+
+h1 受付枠検索
+
+.form-row
+  .col-md-6.offset-3
+    = form_with url: schedules_path, method: :get, local: true do |f|
+      = f.label :start_time, '開始時刻'
+      = f.text_field :start_time, data: { behavior: 'flatpickr' }
+
+      = f.submit '検索', class: 'btn btn-primary'
+
+/ TODO: paginateの実装
+- @schedules.each do |schedule|
+  ul
+    li
+      = link_to schedule.user.name, schedule.user
+      = schedule.start_time.strftime(' %Y/%m/%d %H:%M')
+      = schedule.end_time.strftime('-%H:%M')
