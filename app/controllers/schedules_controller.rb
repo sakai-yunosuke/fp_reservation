@@ -1,5 +1,7 @@
 class SchedulesController < ApplicationController
   def index
+    @reservation = current_user.reservations.build
+
     if params[:start_time]
       @schedules = Schedule.where('start_time LIKE ?', "#{params[:start_time]}%")
     else
