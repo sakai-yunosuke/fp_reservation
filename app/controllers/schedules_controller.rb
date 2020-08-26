@@ -11,8 +11,7 @@ class SchedulesController < ApplicationController
 
   def new
     @schedule = current_user.schedules.build
-    @schedules = Schedule.where(user: current_user)
-    @reservations = Reservation.where(user: current_user)
+    @events = Schedule.where(user: current_user) + Reservation.where(user: current_user)
   end
 
   def create
