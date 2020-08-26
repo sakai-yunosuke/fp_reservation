@@ -3,9 +3,9 @@ class SchedulesController < ApplicationController
     @reservation = current_user.reservations.build
 
     if params[:start_time]
-      @schedules = Schedule.where('start_time LIKE ?', "#{params[:start_time]}%")
+      @schedules = Schedule.where('start_time LIKE ?', "#{params[:start_time]}%").page(params[:page])
     else
-      @schedules = Schedule.where('start_time > ?', Time.now).order(:start_time)
+      @schedules = Schedule.where('start_time > ?', Time.now).order(:start_time).page(params[:page])
     end
   end
 
