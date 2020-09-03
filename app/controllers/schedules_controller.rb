@@ -15,15 +15,13 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    begin
-      current_user.schedules.create!(schedule_params)
+    current_user.schedules.create!(schedule_params)
 
-      flash[:success] = 'スケジュールが登録されました'
-      redirect_to current_user
-    rescue ActiveRecord::RecordInvalid => e
-      flash[:danger] = 'スケジュールの作成に失敗しました、もう一度お試しください'
-      redirect_to new_schedule_path
-    end
+    flash[:success] = 'スケジュールが登録されました'
+    redirect_to current_user
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:danger] = 'スケジュールの作成に失敗しました、もう一度お試しください'
+    redirect_to new_schedule_path
   end
 
   private
