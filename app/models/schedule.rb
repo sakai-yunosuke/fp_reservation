@@ -1,6 +1,6 @@
 class Schedule < ApplicationRecord
   belongs_to :user
-  has_one :reservation
+  has_one :reservation, dependent: :destroy
 
   validates :start_time, presence: true, uniqueness: { scope: :user }
   validates_with ScheduleValidator
