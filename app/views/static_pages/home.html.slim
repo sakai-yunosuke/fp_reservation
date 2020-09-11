@@ -1,8 +1,19 @@
 - provide(:title, 'Home')
 
-.center.jumbotron
-  h1 Welcome
+- if logged_in?
+  .center
+    h3 FPに相談したいユーザーの方はこちら
+    = link_to 'FPの受付枠を検索', schedules_path, class: 'btn btn-lg btn-primary'
 
-  h2 This is the home page of fp_reservation.
+    hr
 
-  = link_to 'Sign up now!', new_user_path, class: 'btn btn-lg btn-primary'
+    h3 FPの方はこちら
+    = link_to '受付枠を作成', new_schedule_path, class: 'btn btn-lg btn-secondary'
+
+- else
+  .center.jumbotron
+    h1 Welcome
+
+    h2 This is the home page of fp_reservation.
+
+    = link_to 'Sign up now!', new_user_path, class: 'btn btn-lg btn-primary'
