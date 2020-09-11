@@ -8,4 +8,8 @@ class Schedule < ApplicationRecord
   def end_time
     self.start_time + 30.minutes
   end
+
+  def is_reserved?
+    Reservation.where(schedule: self).count > 0
+  end
 end
