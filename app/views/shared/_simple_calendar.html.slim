@@ -7,8 +7,10 @@
         .schedule
           - if event.reservation.nil?
             = event.start_time.strftime('%H:%M')
-            = link_to ' 削除', schedule_path(event.id), method: :delete,
-              data: { confirm: "#{event.start_time.strftime('%m/%d %H:%M')}-#{event.end_time.strftime('%H:%M')}の予定を削除しますか？" }
+
+            - if event.user == current_user
+              = link_to ' 削除', schedule_path(event.id), method: :delete,
+                data: { confirm: "#{event.start_time.strftime('%m/%d %H:%M')}-#{event.end_time.strftime('%H:%M')}の予定を削除しますか？" }
           - else
             = event.reservation.user.name
             = event.start_time.strftime(' %H:%M')
