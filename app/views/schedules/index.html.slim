@@ -17,9 +17,13 @@ h1 受付枠検索
       = link_to schedule.user.name, schedule.user
       = schedule.start_time.strftime(' %Y/%m/%d %H:%M')
       = schedule.end_time.strftime('-%H:%M')
-      .form-inline
-        .form-group.mb-2
-          = form_with model: @reservation, local: true do |f|
-            = f.hidden_field :schedule_id, :value => schedule.id
-            = f.submit 'この枠を予約する', class: 'btn btn-secondary'
+
+      - if current_user == schedule.user
+        p.text-muted 自身が作成した受付枠です
+      - elsif !schedule.is_reserved?
+        .form-inline
+          .form-group.mb-2
+            = form_with model: @reservation, local: true do |f|
+              = f.hidden_field :schedule_id, :value => schedule.id
+              = f.submit 'この枠を予約する', class: 'btn btn-secondary'
 = paginate @schedules

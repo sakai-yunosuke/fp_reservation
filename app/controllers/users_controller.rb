@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @events = Schedule.where(user: current_user) + Reservation.where(user: current_user)
+    @events = Schedule.where(user: @user) + Reservation.where(user: @user)
   end
 
   private
