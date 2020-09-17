@@ -1,5 +1,11 @@
 class SchedulesController < ApplicationController
   def index
+    if !logged_in?
+      flash[:danger] = 'ログインが必要です'
+      redirect_to root_path
+      return
+    end
+
     @reservation = current_user.reservations.build
 
     if params[:start_time]
