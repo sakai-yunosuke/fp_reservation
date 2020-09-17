@@ -10,8 +10,13 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    @schedule = current_user.schedules.build
-    @events = Schedule.where(user: current_user) + Reservation.where(user: current_user)
+    if logged_in?
+      @schedule = current_user.schedules.build
+      @events = Schedule.where(user: current_user) + Reservation.where(user: current_user)
+    else
+      flash[:danger] = 'ログインが必要です'
+      redirect_to root_path
+    end
   end
 
   def create
