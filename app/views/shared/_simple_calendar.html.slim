@@ -11,10 +11,10 @@
             - if event.user == current_user
               = link_to ' 削除', schedule_path(event.id), method: :delete,
                 data: { confirm: "#{event.start_time.strftime('%m/%d %H:%M')}-#{event.end_time.strftime('%H:%M')}の予定を削除しますか？" }
-          - else
+          - elsif event.user == current_user
             = event.reservation.user.name
             = event.start_time.strftime(' %H:%M')
-      - elsif event.is_a? Reservation
+      - elsif event.is_a? Reservation and event.user == current_user
         .reservation
           = event.schedule.user.name
           = event.start_time.strftime(' %H:%M')
