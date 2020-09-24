@@ -7,11 +7,7 @@ RSpec.describe SchedulesController, type: :request do
     end
 
     context 'when logged in' do
-      let(:user) { create(:user) }
-      before do
-        allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return(user_id: user.id)
-      end
-
+      include_context 'when login required'
       it { is_expected.to eq(200) }
     end
   end
@@ -22,11 +18,7 @@ RSpec.describe SchedulesController, type: :request do
     end
 
     context 'when logged in' do
-      let(:user) { create(:user) }
-      before do
-        allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return(user_id: user.id)
-      end
-
+      include_context 'when login required'
       it { is_expected.to eq(200) }
     end
   end
