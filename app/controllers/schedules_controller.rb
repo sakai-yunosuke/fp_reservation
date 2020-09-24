@@ -30,6 +30,9 @@ class SchedulesController < ApplicationController
     Schedule.find(params[:id]).destroy
     flash[:success] = 'スケジュールを削除しました'
     redirect_to current_user
+  rescue ActiveRecord::RecordNotFound => e
+    flash[:danger] = '選択したスケジュールが存在しません'
+    redirect_to current_user
   end
 
   private
