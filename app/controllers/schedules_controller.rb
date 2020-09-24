@@ -1,11 +1,7 @@
 class SchedulesController < ApplicationController
-  def index
-    if !logged_in?
-      flash[:danger] = 'ログインが必要です'
-      redirect_to root_path
-      return
-    end
+  before_action :login, only: %i[index new create destroy]
 
+  def index
     @reservation = current_user.reservations.build
 
     if params[:start_time]
@@ -16,13 +12,8 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    if logged_in?
-      @schedule = current_user.schedules.build
-      @events = Schedule.where(user: current_user) + Reservation.where(user: current_user)
-    else
-      flash[:danger] = 'ログインが必要です'
-      redirect_to root_path
-    end
+    @schedule = current_user.schedules.build
+    @events = Schedule.where(user: current_user) + Reservation.where(user: current_user)
   end
 
   def create
@@ -45,5 +36,12 @@ class SchedulesController < ApplicationController
   
   def schedule_params
     params.require(:schedule).permit!
+  end
+
+  def login
+    if !logged_in?
+      flash[:danger] = 'ログインが必要です'
+      redirect_to root_path
+    end
   end
 end
