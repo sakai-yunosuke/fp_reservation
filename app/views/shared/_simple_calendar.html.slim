@@ -4,7 +4,7 @@
   - events.each do |event|
     .div
       - if event.is_a? Schedule
-        .schedule
+        .schedule.small
           - if event.reservation.nil?
             = event.start_time.strftime('%H:%M')
 
@@ -12,9 +12,13 @@
               = link_to ' 削除', schedule_path(event.id), method: :delete,
                 data: { confirm: "#{event.start_time.strftime('%m/%d %H:%M')}-#{event.end_time.strftime('%H:%M')}の予定を削除しますか？" }
           - elsif event.user == current_user
-            = event.reservation.user.name
             = event.start_time.strftime(' %H:%M')
+            | -
+            = event.reservation.user.name
+            | が予約済
       - elsif event.is_a? Reservation and event.user == current_user
-        .reservation
-          = event.schedule.user.name
+        .reservation.small
           = event.start_time.strftime(' %H:%M')
+          | -
+          = event.schedule.user.name
+          | を予約済
