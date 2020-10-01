@@ -46,6 +46,42 @@ RSpec.describe UsersController, type: :request do
       include_context 'when login required'
       it { is_expected.to eq(200) }
     end
+  end
 
+  describe 'PATCH /users/:id' do
+    let(:id) { FactoryBot.create(:user).id }
+
+    context 'when not logged in' do
+      it 'should be fail and redirect to home' do
+        is_expected.to eq 302
+        expect(flash[:danger]).to eq 'ログインが必要です'
+      end
+    end
+
+    context 'when logged in' do
+      include_context 'when login required'
+
+      context 'with invalid information' do
+        before do
+          params[:user] = FactoryBot.attributes_for(:user, :invalid)
+        end
+  
+        it 'should be fail' do
+          is_expected.to eq 200
+          expect(response.body).to include 'errors'
+        end
+      end
+
+      context 'with valid information' do
+        before do
+          params[:user] = FactoryBot.attributes_for(:user)
+        end
+
+        it 'should be success and redirect to user page' do
+          is_expected.to eq 302
+          expect(flash[:success]).to eq 'ユーザー情報が更新されました'
+        end
+      end
+    end
   end
 end
