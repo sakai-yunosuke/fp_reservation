@@ -31,4 +31,21 @@ RSpec.describe UsersController, type: :request do
       end
     end
   end
+
+  describe 'GET /users/:id/edit' do
+    let(:id) { FactoryBot.create(:user).id }
+
+    context 'when not logged in' do
+      it 'should be fail to access and redirect to home' do
+        is_expected.to eq 302
+        expect(flash[:danger]).to eq 'ログインが必要です'
+      end
+    end
+
+    context 'when logged in' do
+      include_context 'when login required'
+      it { is_expected.to eq(200) }
+    end
+
+  end
 end
