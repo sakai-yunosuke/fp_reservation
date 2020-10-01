@@ -6,4 +6,5 @@ h1
 
 = render 'shared/simple_calendar'
 
-= link_to 'スケジュール作成', new_schedule_path, class: 'btn btn-lg btn-primary'
+- if @user == current_user
+  = link_to 'スケジュール作成', new_schedule_path, class: 'btn btn-lg btn-primary'

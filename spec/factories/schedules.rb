@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :schedule do
-    user { FactoryBot.build(:user) }
+    user
 
     now = Time.current
     monday_in_business_hour = now.beginning_of_week(:monday).since(1.week).change(hour: 12)

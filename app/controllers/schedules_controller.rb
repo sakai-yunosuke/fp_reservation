@@ -1,4 +1,6 @@
 class SchedulesController < ApplicationController
+  before_action :login, only: %i[index new create destroy]
+
   def index
     @reservation = current_user.reservations.build
 
@@ -28,11 +30,21 @@ class SchedulesController < ApplicationController
     Schedule.find(params[:id]).destroy
     flash[:success] = 'スケジュールを削除しました'
     redirect_to current_user
+  rescue ActiveRecord::RecordNotFound => e
+    flash[:danger] = '選択したスケジュールが存在しません'
+    redirect_to current_user
   end
 
   private
   
   def schedule_params
     params.require(:schedule).permit!
+  end
+
+  def login
+    if !logged_in?
+      flash[:danger] = 'ログインが必要です'
+      redirect_to root_path
+    end
   end
 end
