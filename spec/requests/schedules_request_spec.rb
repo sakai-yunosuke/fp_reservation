@@ -60,4 +60,42 @@ RSpec.describe SchedulesController, type: :request do
       it { is_expected.to eq(200) }
     end
   end
+
+  describe 'DELETE /schedules/:id' do
+    let(:id) { FactoryBot.create(:schedule).id }
+
+    context 'when not logged in' do
+      it 'should be fail and redirect to home' do
+        is_expected.to eq 302
+        expect(flash[:danger]).to eq 'ログインが必要です'
+      end
+    end
+
+    context 'when logged in' do
+      include_context 'when login required'
+
+      context 'when the schedule does not exist' do
+        before do
+          params[:id] = 'unknown'
+        end
+
+        it 'should be fail and redirect to user page' do
+          expect{subject}.to_not change(Schedule, :count)
+          is_expected.to eq 302
+        end
+      end
+
+      context 'when the schedule exists' do
+        before do
+          params[:id] = id
+        end
+
+        it 'should be success and redirect to user page' do
+          expect{subject}.to change(Schedule, :count).by(-1)
+          is_expected.to eq 302
+          expect(flash[:success]).to eq 'スケジュールを削除しました'
+        end
+      end
+    end
+  end
 end
