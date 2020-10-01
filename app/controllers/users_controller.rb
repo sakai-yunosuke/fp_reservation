@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :login_required, only: %i[edit update]
+
   def new
     @user = User.new
   end
@@ -37,5 +39,12 @@ class UsersController < ApplicationController
   
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def login_required
+    if !logged_in?
+      flash[:danger] = 'ログインが必要です'
+      redirect_to root_path
+    end
   end
 end
