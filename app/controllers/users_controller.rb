@@ -19,6 +19,20 @@ class UsersController < ApplicationController
     @events = Schedule.where(user: @user) + Reservation.where(user: @user)
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = 'ユーザー情報が更新されました'
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   private
   
   def user_params
