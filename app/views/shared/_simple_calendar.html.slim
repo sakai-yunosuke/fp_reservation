@@ -16,7 +16,7 @@
             | -
             = event.reservation.user.name
             | が予約済
-      - elsif event.is_a? Reservation and event.user == current_user
+      - elsif event.is_a?(Reservation) && event.user == current_user
         .reservation.small
           = event.start_time.strftime(' %H:%M')
           | -
