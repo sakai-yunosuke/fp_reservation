@@ -3,19 +3,23 @@
 
   - events.each do |event|
     .div
+      / 作成した受付枠の場合
       - if event.is_a? Schedule
         .schedule.small
+          / 受付枠が予約されていない場合
           - if event.reservation.nil?
             = event.start_time.strftime('%H:%M')
 
             - if event.user == current_user
               = link_to ' 削除', schedule_path(event.id), method: :delete,
                 data: { confirm: "#{event.start_time.strftime('%m/%d %H:%M')}-#{event.end_time.strftime('%H:%M')}の予定を削除しますか？" }
+          / 受付枠が予約されている場合
           - elsif event.user == current_user
             = event.start_time.strftime(' %H:%M')
             | -
             = event.reservation.user.name
             | が予約済
+      / 他人の枠を予約した枠の場合
       - elsif event.is_a?(Reservation) && event.user == current_user
         .reservation.small
           = event.start_time.strftime(' %H:%M')
