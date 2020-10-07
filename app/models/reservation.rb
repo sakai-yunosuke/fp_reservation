@@ -3,13 +3,21 @@ class Reservation < ApplicationRecord
   belongs_to :schedule
   delegate :start_time, to: :schedule
 
-  validate :user_cannot_reserve_at_the_same_time
+  validate :user_cannot_reserve_at_the_same_time, :cannot_reserve_in_the_scheduled_time
 
   def user_cannot_reserve_at_the_same_time
     return if user.nil? || schedule.nil?
 
     if Reservation.joins(:schedule).where(user: user).merge(Schedule.where(start_time: start_time)).count >= 1
       errors.add(:schedule, ': 同じ時間帯に他の予約が入っています')
+    end
+  end
+
+  def cannot_reserve_in_the_scheduled_time
+    return if user.nil? || schedule.nil?
+
+    if Schedule.where(user: user).where(start_time: schedule.start_time).count >= 1
+      errors.add(:schedule, ': 同じ時間帯にスケジュールを登録済みです')
     end
   end
 end
