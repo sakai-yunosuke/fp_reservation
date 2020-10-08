@@ -1,5 +1,5 @@
 class SchedulesController < ApplicationController
-  skip_before_action :correct_user, only: %i[index new create destroy]
+  skip_before_action :correct_user!, only: %i[index new create destroy]
 
   def index
     @reservation = current_user.reservations.build
