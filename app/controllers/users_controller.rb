@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  skip_before_action :require_login!, only: %i[new create]
+  skip_before_action :correct_user!, only: %i[new create]
+
   def new
     @user = User.new
   end
@@ -15,8 +18,28 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find_by(id: params[:id])
+
+    if @user
+      @events = Schedule.where(user: @user) + Reservation.where(user: @user)
+    else
+      flash[:danger] = '存在しないユーザーです'
+      redirect_to root_path
+    end
+  end
+
+  def edit
     @user = User.find(params[:id])
-    @events = Schedule.where(user: @user) + Reservation.where(user: @user)
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = 'ユーザー情報が更新されました'
+      redirect_to @user
+    else
+      render 'edit'
+    end
   end
 
   private

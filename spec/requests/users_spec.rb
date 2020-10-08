@@ -31,4 +31,61 @@ RSpec.describe UsersController, type: :request do
       end
     end
   end
+
+  describe 'GET /users/:id/edit' do
+    let(:id) { FactoryBot.create(:user).id }
+
+    context 'when not logged in' do
+      it 'should be fail to access and redirect to home' do
+        is_expected.to eq 302
+        expect(flash[:danger]).to eq 'ログインが必要です'
+      end
+    end
+
+    context 'when logged in' do
+      include_context 'when login required'
+      let(:id) { user.id }
+
+      it { is_expected.to eq(200) }
+    end
+  end
+
+  describe 'PATCH /users/:id' do
+    let(:id) { FactoryBot.create(:user).id }
+
+    context 'when not logged in' do
+      it 'should be fail and redirect to home' do
+        is_expected.to eq 302
+        expect(flash[:danger]).to eq 'ログインが必要です'
+      end
+    end
+
+    context 'when logged in' do
+      include_context 'when login required'
+      let(:id) { user.id }
+
+      context 'with invalid information' do
+        before do
+          params[:user] = user.attributes.merge(password: nil)
+        end
+  
+        it 'should be fail' do
+          is_expected.to eq 200
+          expect(response.body).to include 'errors'
+        end
+      end
+
+      context 'with valid information' do
+        before do
+          params[:user] = user.attributes
+        end
+        let(:id) { user.id }
+
+        it 'should be success and redirect to user page' do
+          is_expected.to eq 302
+          expect(flash[:success]).to eq 'ユーザー情報が更新されました'
+        end
+      end
+    end
+  end
 end

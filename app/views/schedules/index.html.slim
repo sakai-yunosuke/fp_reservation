@@ -19,7 +19,7 @@ h1 受付枠検索
       = schedule.end_time.strftime('-%H:%M')
 
       - if current_user == schedule.user
-        p.text-muted 自身が作成した受付枠です
+        p.text-muted 自身が登録した受付枠です
       - elsif !schedule.is_reserved?
         .form-inline
           .form-group.mb-2
