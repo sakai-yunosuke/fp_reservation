@@ -27,8 +27,14 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    Schedule.find(params[:id]).destroy
-    flash[:success] = 'スケジュールを削除しました'
+    schedule = Schedule.find(params[:id])
+
+    if schedule.user == current_user
+      schedule.destroy
+      flash[:success] = 'スケジュールを削除しました'
+    else
+      flash[:danger] = '不適切なユーザーです'
+    end
     redirect_to current_user
   rescue ActiveRecord::RecordNotFound => e
     flash[:danger] = '選択したスケジュールが存在しません'

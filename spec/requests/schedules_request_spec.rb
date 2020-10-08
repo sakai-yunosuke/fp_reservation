@@ -62,7 +62,8 @@ RSpec.describe SchedulesController, type: :request do
   end
 
   describe 'DELETE /schedules/:id' do
-    let(:id) { FactoryBot.create(:schedule).id }
+    let(:schedule) { FactoryBot.create(:schedule) }
+    let(:id) { schedule.id }
 
     context 'when not logged in' do
       it 'should be fail and redirect to home' do
@@ -73,6 +74,7 @@ RSpec.describe SchedulesController, type: :request do
 
     context 'when logged in' do
       include_context 'when login required'
+      let(:schedule) { FactoryBot.create(:schedule, user: user) }
 
       context 'when the schedule does not exist' do
         before do
