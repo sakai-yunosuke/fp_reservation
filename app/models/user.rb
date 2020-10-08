@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 8 }, allow_blank: true
 
   has_many :reservations, dependent: :destroy
   has_many :schedules, dependent: :destroy

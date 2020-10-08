@@ -18,8 +18,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @events = Schedule.where(user: @user) + Reservation.where(user: @user)
+    @user = User.find_by(id: params[:id])
+
+    if @user
+      @events = Schedule.where(user: @user) + Reservation.where(user: @user)
+    else
+      flash[:danger] = '存在しないユーザーです'
+      redirect_to root_path
+    end
   end
 
   def edit

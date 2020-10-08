@@ -44,6 +44,8 @@ RSpec.describe UsersController, type: :request do
 
     context 'when logged in' do
       include_context 'when login required'
+      let(:id) { user.id }
+
       it { is_expected.to eq(200) }
     end
   end
@@ -60,10 +62,11 @@ RSpec.describe UsersController, type: :request do
 
     context 'when logged in' do
       include_context 'when login required'
+      let(:id) { user.id }
 
       context 'with invalid information' do
         before do
-          params[:user] = FactoryBot.attributes_for(:user, :invalid)
+          params[:user] = user.attributes.merge(password: nil)
         end
   
         it 'should be fail' do
@@ -74,8 +77,9 @@ RSpec.describe UsersController, type: :request do
 
       context 'with valid information' do
         before do
-          params[:user] = FactoryBot.attributes_for(:user)
+          params[:user] = user.attributes
         end
+        let(:id) { user.id }
 
         it 'should be success and redirect to user page' do
           is_expected.to eq 302
