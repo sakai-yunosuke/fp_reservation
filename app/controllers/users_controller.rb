@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
-  before_action :correct_user, only: %i[edit update]
+  skip_before_action :correct_user, only: %i[new create]
 
   def new
     @user = User.new
@@ -46,14 +46,5 @@ class UsersController < ApplicationController
   
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  end
-
-  def correct_user
-    @user = User.find_by(id: params[:id])
-
-    if @user != current_user
-      flash[:danger] = '不適切なユーザーです'
-      redirect_to root_path
-    end
   end
 end
