@@ -1,6 +1,4 @@
 class SchedulesController < ApplicationController
-  before_action :login, only: %i[index new create destroy]
-
   def index
     @reservation = current_user.reservations.build
 
@@ -39,12 +37,5 @@ class SchedulesController < ApplicationController
   
   def schedule_params
     params.require(:schedule).permit!
-  end
-
-  def login
-    if !logged_in?
-      flash[:danger] = 'ログインが必要です'
-      redirect_to root_path
-    end
   end
 end
